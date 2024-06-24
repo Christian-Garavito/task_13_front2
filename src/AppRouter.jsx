@@ -3,21 +3,23 @@ import React from 'react';
 // Importar Navigate, Route y Routes desde 'react-router-dom' para definir las rutas de la aplicación
 import { Navigate, Route, Routes } from 'react-router-dom';
 // Importar HomePage, PokemonPage y SearchPage desde './pages' para definir las páginas de la aplicación
-import { HomePage, Carrito} from './pages';
+import { HomePage, InicioContenido, TablaContenido, TablaTipoContenido, TablaTipoGeneros, CrearContenido } from './pages';
 
 // Componente que define las rutas de la aplicación
 export const AppRouter = () => {
     return (
         <Routes>
-            {/* Ruta base que muestra la barra de navegación en todas las páginas */}
+       
             <Route path='/'>
-                {/* Ruta de inicio que muestra la página de inicio */}
                 <Route index element={<HomePage />} />
-                {/* Ruta para mostrar detalles de un Pokémon por ID */}
-                <Route path='carrito' element={<Carrito />} />
+                <Route path='iniciocontenido' element={<InicioContenido />} />
+                <Route path='tablacontenido' element={<TablaContenido />} />
+                <Route path='tablatipocontenido' element={<TablaTipoContenido />} />
+                <Route path='tablatipogeneros' element={<TablaTipoGeneros />} />
+                <Route path='crearcontenido' element={<CrearContenido />}/>       
             </Route>
 
-            {/* Ruta de redireccionamiento para rutas no encontradas */}
+          
             <Route path='*' element={<Navigate to='/' />} />
         </Routes>
     );

@@ -1,2 +1,6 @@
 export * from './HomePage'
-export * from './Carrito'
+export * from './InicioContenido'
+export * from './TablaContenido'
+export * from './TablaTipoContenido'
+export * from './TablaTipoGeneros'
+export * from './CrearContenido'
