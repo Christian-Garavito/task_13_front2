@@ -6,9 +6,9 @@
     /* background-color: brown; */
     border-radius: 10px;
     border: 0.1px solid rgb(2, 198, 165);
-    padding: 1px 15px;
+    padding: 15px 15px 15px 15px;
 
   }
-  /* .nav-link:hover {
+   .nav-link:hover {
      text-decoration: underline; 
-  } */
+  } 

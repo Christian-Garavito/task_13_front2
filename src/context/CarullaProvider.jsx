@@ -7,8 +7,8 @@ export const CarullaProvider = ({children})=>{
     const [peliculasCarrito, setPeliculasCarrito] = useState([]);
 
 
-    const getAllCarulla = async (nombrePelicula,page =1) =>{
-        const baseURL = 'http://www.omdbapi.com/?apikey=3923e2e&type=movie'
+    const getAllContenido = async () =>{
+        const baseURL = 'http://127.0.0.1:5000/servicio-1/contenidos'
 
         const res = await fetch(
             `${baseURL}&page=${page}&s=${nombrePelicula}`
@@ -56,9 +56,7 @@ export const CarullaProvider = ({children})=>{
         <CarullaContext.Provider
         value={{
             allCarulla,
-            getAllCarulla,
-            peliculasCarrito,
-            agregarAlCarrito,
+            getAllContenido,            agregarAlCarrito,
             eliminarCarrito
         }}>
             {children}
