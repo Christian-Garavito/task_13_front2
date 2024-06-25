@@ -2,14 +2,31 @@ import React, { useContext, useEffect,useState } from "react";
 import ButtonCuerpo from "../components/ButtonCuerpo";
 import { CarullaContext } from "../context/CarullaContext";
 
+
 export const CrearContenido = () => {
-  const { setContenidoBack } = useContext(CarullaContext);
+  const { setContenidoBack, getContenido } = useContext(CarullaContext);
   const [textoBusqueda1, setTextoBusqueda1] = useState("");
   const [textoBusqueda2, setTextoBusqueda2] = useState("");
   const [textoBusqueda3, setTextoBusqueda3] = useState("");
   const [textoBusqueda4, setTextoBusqueda4] = useState("");
   const [textoBusqueda5, setTextoBusqueda5] = useState("");
   const [textoBusqueda6, setTextoBusqueda6] = useState("");
+  const [datoEncontrado, setdatoEncontrado] = useState(null);
+
+  useEffect(() => {
+    
+     getContenido(textoBusqueda1).then((infEncontrada)=>{
+      if (infEncontrada && infEncontrada.length){
+        setdatoEncontrado(infEncontrada[0].pk_id_peliculas);
+      }else{
+        setdatoEncontrado(null);
+      }
+     }).catch((error)=>{
+      console.error(error);
+      setdatoEncontrado(null);
+    });
+
+  },[textoBusqueda1]);
   
   return (
     <>
@@ -90,21 +107,21 @@ export const CrearContenido = () => {
         <input
               type="text"
               autoComplete="off"
-              value={textoBusqueda5}
+              value={textoBusqueda6}
               onChange={(ev) => {
-                setTextoBusqueda5(ev.target.value);
+                setTextoBusqueda6(ev.target.value);
               }}
               placeholder="Filtar por Nombre de pelicula"
             />
         <button onClick={() => {
           setContenidoBack({
-            "ano_pelicula": 2028,
-            "director_pelicula": "Jhon Favreau",
-            "fk_id_tipo_contenido": 1,
-            "pk_id_peliculas": 100,
-            "titulo_pelicula": "iron man 4",
-            "valor_pelicula": 140000000
-          }, 100)
+            "pk_id_peliculas": textoBusqueda1,
+            "titulo_pelicula": textoBusqueda2,
+            "ano_pelicula": textoBusqueda3,
+            "fk_id_tipo_contenido": textoBusqueda4,
+            "director_pelicula": textoBusqueda5,
+            "valor_pelicula": textoBusqueda6
+          },datoEncontrado)
         }}>Crear aleatorio</button>
       </div>
     </>

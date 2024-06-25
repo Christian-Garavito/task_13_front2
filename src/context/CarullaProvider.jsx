@@ -31,6 +31,25 @@ export const CarullaProvider = ({ children }) => {
     }
   };
 
+  const getContenido = async (id_pelicula) => {
+    const baseURL = "http://127.0.0.1:5000/servicio-1/contenidos";
+
+   
+
+    const res = await fetch(`${baseURL}?pk_id_peliculas=${id_pelicula}`);
+    // arduini data=0
+    const data = await res.json();
+    // usar
+    // const { Search } = data;
+
+    if (data?.status) {
+      console.log("Ok", data?.msg);
+      return [...(data?.obj ?? [])]
+    } else {
+      console.log("Error", data?.msg);
+    }
+  };
+
   const setContenidoBack = async (
     valoresCambiar = {},
     pk_id_peliculas = undefined
@@ -76,6 +95,7 @@ export const CarullaProvider = ({ children }) => {
         allContenido,
         getAllContenido,
         setContenidoBack,
+        getContenido
       }}
     >
       {children}
