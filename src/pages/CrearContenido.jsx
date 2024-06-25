@@ -1,4 +1,4 @@
-import React, { useContext, useEffect,useState } from "react";
+import { useContext, useEffect,useState } from "react";
 import ButtonCuerpo from "../components/ButtonCuerpo";
 import { CarullaContext } from "../context/CarullaContext";
 
@@ -36,7 +36,6 @@ export const CrearContenido = () => {
         </div>
         <div className="botones_inicio_contenido">
           <div className="botones_contenido">
-            <ButtonCuerpo title={"Volver"} href="/inicio-contenido" />
             <ButtonCuerpo
               title={"Tabla de Contenido"}
               href="/tabla-contenido"

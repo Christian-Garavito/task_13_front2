@@ -1,21 +1,24 @@
-import React, { useContext, useEffect,useState } from "react";
+import { useContext, useEffect,useState } from "react";
 import ButtonCuerpo from "../components/ButtonCuerpo";
 import { CarullaContext } from "../context/CarullaContext";
-
 import TablaItems from "../components/TablaItems";
 
 export const TablaContenido = () => {
   const { getAllContenido, allContenido } = useContext(CarullaContext);
-  const [textoBusqueda, setTextoBusqueda] = useState("");
-  const [textoBusqueda1, setTextoBusqueda1] = useState("");
+  const [buscarIdContenido, setBuscarIdContenido] = useState("");
+  const [buscarNombrePelicula, setTextoBusqueda1] = useState("");
+  const [buscarDirectorPelicula, setTextoBusqueda2] = useState("");
 
   useEffect(() => {
     const filtros = [];
-    if (textoBusqueda) {
-      filtros.push(["pk_id_peliculas", textoBusqueda]);
+    if (buscarIdContenido) {
+      filtros.push(["pk_id_peliculas", buscarIdContenido]);
     }
-    if (textoBusqueda1) {
-      filtros.push(["titulo_pelicula", textoBusqueda1]);
+    if (buscarNombrePelicula) {
+      filtros.push(["titulo_pelicula", buscarNombrePelicula]);
+     }
+     if (buscarDirectorPelicula) {
+      filtros.push(["director_pelicula", buscarDirectorPelicula]);
      }
 
     if (filtros.length) {
@@ -23,8 +26,8 @@ export const TablaContenido = () => {
     } else {
       getAllContenido();
     }
-    //textoBusqueda toca agregaerlo cualdo esten los filtos
-  }, [textoBusqueda,textoBusqueda1]);
+    //buscarIdContenido toca agregaerlo cualdo esten los filtos
+  }, [buscarIdContenido,buscarNombrePelicula,buscarDirectorPelicula]);
 
   return (
     <>
@@ -45,9 +48,9 @@ export const TablaContenido = () => {
             <input
               type="text"
               autoComplete="off"
-              value={textoBusqueda}
+              value={buscarIdContenido}
               onChange={(ev) => {
-                setTextoBusqueda(ev.target.value);
+                setBuscarIdContenido(ev.target.value);
               }}
               placeholder="Filtar por ID pelicula"
             />
@@ -57,7 +60,7 @@ export const TablaContenido = () => {
             <input
               type="text"
               autoComplete="off"
-              value={textoBusqueda1}
+              value={buscarNombrePelicula}
               onChange={(ev) => {
                 setTextoBusqueda1(ev.target.value);
               }}
@@ -66,20 +69,28 @@ export const TablaContenido = () => {
           </div>
           <div>
             <label htmlFor="">Director</label>
-            <input type="text" name="" id="" />
+            <input
+              type="text"
+              autoComplete="off"
+              value={buscarDirectorPelicula}
+              onChange={(ev) => {
+                setTextoBusqueda2(ev.target.value);
+              }}
+              placeholder="Filtar por director pelicula"
+            />
           </div>
         </div>
         <TablaItems
           itemsMostrar={(allContenido || []).map(
-            ({ pk_id_peliculas, titulo_pelicula, director_pelicula }) => ({
+            ({ pk_id_peliculas, titulo_pelicula, ano_pelicula, director_pelicula }) => ({
               pk_id_peliculas,
               titulo_pelicula,
+              ano_pelicula,
               director_pelicula,
             })
           )}
-          headers={["ID pelicula", "Nombre pelicula", "Director pelicula"]}
+          headers={["ID pelicula", "Nombre pelicula", "Año de la pelicula", "Director pelicula"]}
         />
-        {/* <CarullaList listaPeliculas={peliculasCarrito} agregar={false} /> */}
       </div>
     </>
   );

@@ -4,7 +4,9 @@ import { CarullaContext } from "./CarullaContext";
 export const CarullaProvider = ({ children }) => {
   // esto es un estado
   const [allContenido, setAllContenido] = useState([]);
+  const [allTipo, setAllTipo] = useState([]);
 
+  // Trear el cotenido de la la tabla de contenido ibm---------------------------------------------------------------------
   const getAllContenido = async (filtros) => {
     const baseURL = "http://127.0.0.1:5000/servicio-1/contenidos";
 
@@ -33,8 +35,6 @@ export const CarullaProvider = ({ children }) => {
 
   const getContenido = async (id_pelicula) => {
     const baseURL = "http://127.0.0.1:5000/servicio-1/contenidos";
-
-   
 
     const res = await fetch(`${baseURL}?pk_id_peliculas=${id_pelicula}`);
     // arduini data=0
@@ -87,6 +87,48 @@ export const CarullaProvider = ({ children }) => {
 
 
 
+   // Trear el cotenido de la la tabla de tipo contenido---------------------------------------------------------------
+  const getAllTipo = async (filtros) => {
+    const baseURL = "http://127.0.0.1:5000/servicio-1/tipo_contenido";
+
+    const strFilters = Object.entries(filtros || {})
+      .map(([key, val]) => `${key}=${val}`)
+      .join("&");
+
+    const res = await fetch(`${baseURL}?${strFilters}`);
+    // arduini data=0
+    const data = await res.json();
+    // usar
+    // const { Search } = data;
+
+    if (data?.status) {
+      console.log("Ok", data?.msg);
+      setAllTipo([...(data?.obj ?? [])]);
+    } else {
+      console.log("Error", data?.msg);
+    }
+  };
+
+  const getTipo = async (id_pelicula) => {
+    const baseURL = "http://127.0.0.1:5000/servicio-1/tipo_contenido";
+
+    const res = await fetch(`${baseURL}?pk_id_tipo_contenido=${id_pelicula}`);
+    // arduini data=0
+    const data = await res.json();
+    // usar
+    // const { Search } = data;
+
+    if (data?.status) {
+      console.log("Ok", data?.msg);
+      return [...(data?.obj ?? [])]
+    } else {
+      console.log("Error", data?.msg);
+    }
+  };
+
+
+
+
 
 
   return (
@@ -95,7 +137,10 @@ export const CarullaProvider = ({ children }) => {
         allContenido,
         getAllContenido,
         setContenidoBack,
-        getContenido
+        getContenido,
+        allTipo,
+        getAllTipo,
+        getTipo
       }}
     >
       {children}
