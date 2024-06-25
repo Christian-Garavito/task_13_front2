@@ -15,9 +15,9 @@ export const InicioContenido = () => {
                 <div className='botones_inicio_contenido' >
                     <div className='botones_contenido'>
                         <ButtonCuerpo title={"Volver"} href='/' />
-                        <ButtonCuerpo title={"Tabla de Contenido"} href='/tablacontenido' />
-                        <ButtonCuerpo title={"Tabla Tipo de Cotenido"} href='/tablatipocontenido' />
-                        <ButtonCuerpo title={"Tabla Tipo de Genero"} href='/tablatipogeneros' />
+                        <ButtonCuerpo title={"Tabla de Contenido"} href='/tabla-contenido' />
+                        <ButtonCuerpo title={"Tabla Tipo de Cotenido"} href='/tabla-tipo-contenido' />
+                        <ButtonCuerpo title={"Tabla Tipo de Genero"} href='/tabla-tipo-generos' />
                     </div>
                 </div>
             </div>

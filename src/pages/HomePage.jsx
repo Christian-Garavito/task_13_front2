@@ -19,7 +19,7 @@ export const HomePage = () => {
             </div>
             <div className='botones_home_inicio'>
                 <div className='botones_inicio'>
-                    <ButtonCuerpo title={"Contenido"} href='/iniciocontenido' />
+                    <ButtonCuerpo title={"Contenido"} href='/inicio-contenido' />
                     <ButtonCuerpo title={"Pokemon"} href='#' />
                 </div>
             </div>

@@ -13,8 +13,8 @@ export const TablaTipoGeneros = () => {
             </div>
             <div className='botones_inicio_contenido' >
                 <div className='botones_contenido'>
-                    <ButtonCuerpo title={"Volver"} href='/iniciocontenido' />
-                    <ButtonCuerpo title={"Crear Tipo Genero"} href='/crearcontenido' />
+                    <ButtonCuerpo title={"Volver"} href='/inicio-contenido' />
+                    <ButtonCuerpo title={"Crear Tipo Genero"} href='/crear-contenido' />
                 </div>
             </div>
         </>
