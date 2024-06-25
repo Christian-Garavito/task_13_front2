@@ -3,7 +3,7 @@ import { CarullaContext } from "./CarullaContext";
 
 export const CarullaProvider = ({children})=>{
     // esto es un estado
-    const [allCarulla, setAllCarulla] =useState([]);
+    const [allContenido, setAllContenido]=useState([]);
     const [peliculasCarrito, setPeliculasCarrito] = useState([]);
 
 
@@ -11,14 +11,14 @@ export const CarullaProvider = ({children})=>{
         const baseURL = 'http://127.0.0.1:5000/servicio-1/contenidos'
 
         const res = await fetch(
-            `${baseURL}&page=${page}&s=${nombrePelicula}`
+            `${baseURL}?pk_id_peliculas=${pk_id_peliculas}&titulo_pelicula=${titulo_pelicula}&ano_pelicula=${ano_pelicula}&fk_id_tipo_contenido=${fk_id_tipo_contenido}&director_pelicula=${director_pelicula}&valor_pelicula=${valor_pelicula}`
         );
         // arduini data=0
         const data = await res.json();
         // usar
          const {Search} =data;
     
-        setAllCarulla([...Search]);
+        setAllContenido([...Search]);
     }
 
     const agregarAlCarrito = (pelicula) => {
@@ -55,8 +55,9 @@ export const CarullaProvider = ({children})=>{
     return(
         <CarullaContext.Provider
         value={{
-            allCarulla,
-            getAllContenido,            agregarAlCarrito,
+            allContenido,
+            getAllContenido,            
+            agregarAlCarrito,
             eliminarCarrito
         }}>
             {children}
