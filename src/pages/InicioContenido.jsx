@@ -1,4 +1,3 @@
-import React, { useContext, useEffect } from 'react';
 import ButtonCuerpo from '../components/ButtonCuerpo';
 
 

@@ -1,8 +1,7 @@
-import React, { useContext, useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 import { CarullaContext } from '../context/CarullaContext';
-import NavButton from '../components/NavButton';
-import { CarullaList } from '../components/CarullaList';
+
 import ButtonCuerpo from '../components/ButtonCuerpo';
 
 export const HomePage = () => {
