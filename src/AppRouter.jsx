@@ -12,11 +12,11 @@ export const AppRouter = () => {
        
             <Route path='/'>
                 <Route index element={<HomePage />} />
-                <Route path='iniciocontenido' element={<InicioContenido />} />
-                <Route path='tablacontenido' element={<TablaContenido />} />
-                <Route path='tablatipocontenido' element={<TablaTipoContenido />} />
-                <Route path='tablatipogeneros' element={<TablaTipoGeneros />} />
-                <Route path='crearcontenido' element={<CrearContenido />}/>       
+                <Route path='inicio-contenido' element={<InicioContenido />} />
+                <Route path='tabla-contenido' element={<TablaContenido />} />
+                <Route path='tabla-tipo-contenido' element={<TablaTipoContenido />} />
+                <Route path='tabla-tipo-generos' element={<TablaTipoGeneros />} />
+                <Route path='crear-contenido' element={<CrearContenido />}/>       
             </Route>
 
           

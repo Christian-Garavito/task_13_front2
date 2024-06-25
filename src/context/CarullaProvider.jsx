@@ -1,67 +1,104 @@
-import { useEffect,useState } from "react";
+import { useEffect, useState } from "react";
 import { CarullaContext } from "./CarullaContext";
 
-export const CarullaProvider = ({children})=>{
-    // esto es un estado
-    const [allCarulla, setAllCarulla] =useState([]);
-    const [peliculasCarrito, setPeliculasCarrito] = useState([]);
+export const CarullaProvider = ({ children }) => {
+  // esto es un estado
+  const [allContenido, setAllContenido] = useState([]);
 
+  const getAllContenido = async (filtros) => {
+    const baseURL = "http://127.0.0.1:5000/servicio-1/contenidos";
 
-    const getAllContenido = async () =>{
-        const baseURL = 'http://127.0.0.1:5000/servicio-1/contenidos'
+    const strFilters = Object.entries(filtros || {})
+      .map(([key, val]) => `${key}=${val}`)
+      .join("&");
 
-        const res = await fetch(
-            `${baseURL}&page=${page}&s=${nombrePelicula}`
-        );
-        // arduini data=0
-        const data = await res.json();
-        // usar
-         const {Search} =data;
-    
-        setAllCarulla([...Search]);
+    // js
+    // [].join("@");
+    // python
+    // "@".join([]);
+
+    const res = await fetch(`${baseURL}?${strFilters}`);
+    // arduini data=0
+    const data = await res.json();
+    // usar
+    // const { Search } = data;
+
+    if (data?.status) {
+      console.log("Ok", data?.msg);
+      setAllContenido([...(data?.obj ?? [])]);
+    } else {
+      console.log("Error", data?.msg);
+    }
+  };
+
+  const getContenido = async (id_pelicula) => {
+    const baseURL = "http://127.0.0.1:5000/servicio-1/contenidos";
+
+   
+
+    const res = await fetch(`${baseURL}?pk_id_peliculas=${id_pelicula}`);
+    // arduini data=0
+    const data = await res.json();
+    // usar
+    // const { Search } = data;
+
+    if (data?.status) {
+      console.log("Ok", data?.msg);
+      return [...(data?.obj ?? [])]
+    } else {
+      console.log("Error", data?.msg);
+    }
+  };
+
+  const setContenidoBack = async (
+    valoresCambiar = {},
+    pk_id_peliculas = undefined
+  ) => {
+    "http://127.0.0.1:5000/servicio-1/contenidos/1";
+    const baseURL = `http://127.0.0.1:5000/servicio-1/contenidos${pk_id_peliculas != null ? `/${pk_id_peliculas}` : ""
+      }`;
+
+    // js
+    // [].join("@");
+    // python
+    // "@".join([]);
+
+    const res = await fetch(baseURL, {
+      method: pk_id_peliculas != null ? "PUT" : "POST",
+      body: JSON.stringify(valoresCambiar),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+    // arduini data=0
+    const data = await res.json();
+    // usar
+    // const { Search } = data;
+    if (!("status" in data)) {
+      throw new Error("Error llamando el fetch");
     }
 
-    const agregarAlCarrito = (pelicula) => {
-        setPeliculasCarrito((peliculasEnCarrito) => {
-            const temp = [...peliculasEnCarrito, pelicula];
-
-            // setItem: Guardar en el storage del navegador
-            window.localStorage.setItem("peliculas_carrito", JSON.stringify(temp))
-            return [...peliculasEnCarrito, pelicula];
-        })
+    if (data?.status) {
+      console.log("Ok", data?.msg);
+    } else {
+      console.log("Error", data?.msg);
     }
-    
-    const eliminarCarrito = (index) => {
-        setPeliculasCarrito((peliculasEnCarrito) => {
-            const temp = [...peliculasEnCarrito];
-            temp.splice(index, 1);
-            window.localStorage.setItem("peliculas_carrito", JSON.stringify(temp))
-            return temp;
-        })
-    }
+  };
 
 
-    useEffect(() => {
-        // getItem: Leer del storage del navegador
-        const valorStorage = window.localStorage.getItem("peliculas_carrito");
 
-        // Verificar si hay algo
-        if (valorStorage) {
-            // Pasar el valor del storage de string a objeto de js
-            setPeliculasCarrito(JSON.parse(valorStorage))
-        }
-    }, [])
 
-    return(
-        <CarullaContext.Provider
-        value={{
-            allCarulla,
-            getAllContenido,            agregarAlCarrito,
-            eliminarCarrito
-        }}>
-            {children}
-        </CarullaContext.Provider>
 
-    );
-
+  return (
+    <CarullaContext.Provider
+      value={{
+        allContenido,
+        getAllContenido,
+        setContenidoBack,
+        getContenido
+      }}
+    >
+      {children}
+    </CarullaContext.Provider>
+  );
 };
