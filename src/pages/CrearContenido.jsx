@@ -7,6 +7,7 @@ import TablaItems from "../components/TablaItems";
 
 export const CrearContenido = () => {
   const { setContenidoBack, getContenido } = useContext(CarullaContext);
+  const { setGenerosBack, getTablaGeneros } = useContext(CarullaContext);
   const { getAllContenido, allContenido } = useContext(CarullaContext);
   const { getAllTablaGeneros, allGenero } = useContext(CarullaContext);
   const [textoBusqueda1, setTextoBusqueda1] = useState("");
@@ -15,7 +16,11 @@ export const CrearContenido = () => {
   const [textoBusqueda4, setTextoBusqueda4] = useState("");
   const [textoBusqueda5, setTextoBusqueda5] = useState("");
   const [textoBusqueda6, setTextoBusqueda6] = useState("");
+  const [textoBusqueda7, setTextoBusqueda7] = useState("");
+  const [textoBusqueda8, setTextoBusqueda8] = useState("");
+  const [textoBusqueda9, setTextoBusqueda9] = useState("");
   const [datoEncontrado, setdatoEncontrado] = useState(null);
+  const [datoEncontrado1, setdatoEncontrado1] = useState(null);
 
 
   useEffect(() => {
@@ -49,6 +54,24 @@ export const CrearContenido = () => {
       setTextoBusqueda6("")
     });
 
+    getTablaGeneros(textoBusqueda7).then((infEncontrada1) => {
+      if (infEncontrada1 && infEncontrada1.length) {
+        setdatoEncontrado1(infEncontrada1[0].pk_genero);
+        setTextoBusqueda8(infEncontrada1[0].nombre_genero);
+        setTextoBusqueda9(infEncontrada1[0].descripcion_genero);
+
+      } else {
+        setdatoEncontrado1(null);
+        setTextoBusqueda8("")
+        setTextoBusqueda9("")
+      }
+    }).catch((error) => {
+      console.error(error);
+      setdatoEncontrado1(null);
+      setTextoBusqueda8("")
+      setTextoBusqueda9("")
+    });
+
     if (filtros.length) {
       getAllContenido(Object.fromEntries(filtros));
     } else {
@@ -56,7 +79,7 @@ export const CrearContenido = () => {
       getAllTablaGeneros();
     }
 
-  }, [textoBusqueda1]);
+  }, [textoBusqueda1,textoBusqueda7]);
 
   return (
     <>
@@ -166,6 +189,7 @@ export const CrearContenido = () => {
           }}>Crear / Editar</button>
         </div>
       </div>
+      {/* tablas ----------------------------------------------------------------------*/}
       <div className={styles['modulo_tablas']}>
         <div>
           <TablaItems
@@ -189,6 +213,53 @@ export const CrearContenido = () => {
             )}
             headers={["ID tipo", "Tipo contenido", "Decripcion"]}
           />
+        </div>
+      </div>
+      <div className={styles['inico_input_contenido']}>
+        <div className={styles['modulo_input']}>
+          <label htmlFor="">Id Genero:</label>
+          <input
+            type="text"
+            autoComplete="off"
+            value={textoBusqueda1}
+            onChange={(ev) => {
+              setTextoBusqueda7(ev.target.value);
+            }}
+            placeholder="Id Genero"
+          />
+        </div>
+        <div className={styles['modulo_input']}>
+          <label htmlFor="">Nombre Genero:</label>
+          <input
+            type="text"
+            autoComplete="off"
+            value={textoBusqueda2}
+            onChange={(ev) => {
+              setTextoBusqueda8(ev.target.value);
+            }}
+            placeholder="Nombre Genero"
+          />
+        </div>
+        <div className={styles['modulo_input']}>
+          <label htmlFor="">Descripcion:</label>
+          <input
+            type="text"
+            autoComplete="off"
+            value={textoBusqueda3}
+            onChange={(ev) => {
+              setTextoBusqueda9(ev.target.value);
+            }}
+            placeholder="Descripcion"
+          />
+        </div>
+        <div>
+          <button onClick={() => {
+            setGenerosBack({
+              "pk_genero": textoBusqueda7,
+              "nombre_genero": textoBusqueda8,
+              "descripcion_genero": textoBusqueda9,
+            }, datoEncontrado1)
+          }}>Crear / Editar</button>
         </div>
       </div>
 
