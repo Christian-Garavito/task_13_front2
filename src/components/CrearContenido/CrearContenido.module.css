@@ -1,0 +1,17 @@
+.inico_input_contenido{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.modulo_input{
+    display: flex;
+    padding: 10px 0px;
+
+}
+
+.modulo_selector{
+
+}
