@@ -2,10 +2,13 @@ import { useContext, useEffect, useState } from "react";
 import ButtonCuerpo from "../components/ButtonCuerpo";
 import { CarullaContext } from "../context/CarullaContext";
 import styles from "../components/CrearContenido/CrearContenido.module.css"
+import TablaItems from "../components/TablaItems";
 
 
 export const CrearContenido = () => {
   const { setContenidoBack, getContenido } = useContext(CarullaContext);
+  const { getAllContenido, allContenido } = useContext(CarullaContext);
+  const { getAllTablaGeneros, allGenero } = useContext(CarullaContext);
   const [textoBusqueda1, setTextoBusqueda1] = useState("");
   const [textoBusqueda2, setTextoBusqueda2] = useState("");
   const [textoBusqueda3, setTextoBusqueda3] = useState("");
@@ -14,7 +17,10 @@ export const CrearContenido = () => {
   const [textoBusqueda6, setTextoBusqueda6] = useState("");
   const [datoEncontrado, setdatoEncontrado] = useState(null);
 
+
   useEffect(() => {
+    const filtros = [];
+
 
     getContenido(textoBusqueda1).then((infEncontrada) => {
       if (infEncontrada && infEncontrada.length) {
@@ -42,6 +48,13 @@ export const CrearContenido = () => {
       setTextoBusqueda5("")
       setTextoBusqueda6("")
     });
+
+    if (filtros.length) {
+      getAllContenido(Object.fromEntries(filtros));
+    } else {
+      getAllContenido();
+      getAllTablaGeneros();
+    }
 
   }, [textoBusqueda1]);
 
@@ -110,6 +123,7 @@ export const CrearContenido = () => {
           <select onChange={(ev) => {
             setTextoBusqueda4(ev.target.value);
           }}>
+            <option value={0}>Agregar Tipo Contenido</option>
             <option value={1}>pelicula</option>
             <option value={2}>seria</option>
             <option value={3}>juego</option>
@@ -152,6 +166,32 @@ export const CrearContenido = () => {
           }}>Crear / Editar</button>
         </div>
       </div>
+      <div className={styles['modulo_tablas']}>
+        <div>
+          <TablaItems
+            itemsMostrar={(allContenido || []).map(
+              ({ pk_id_peliculas, titulo_pelicula, }) => ({
+                pk_id_peliculas,
+                titulo_pelicula,
+              })
+            )}
+            headers={["ID pelicula", "Nombre pelicula"]}
+          />
+        </div>
+        <div>
+          <TablaItems
+            itemsMostrar={(allGenero || []).map(
+              ({ pk_genero, nombre_genero, descripcion_genero }) => ({
+                pk_genero,
+                nombre_genero,
+                descripcion_genero,
+              })
+            )}
+            headers={["ID tipo", "Tipo contenido", "Decripcion"]}
+          />
+        </div>
+      </div>
+
     </>
   );
 };
