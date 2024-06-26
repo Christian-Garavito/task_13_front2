@@ -187,6 +187,57 @@ export const CarullaProvider = ({ children }) => {
     }
   };
 
+  const getTablaGeneros = async (id_tipo_contenido) => {
+    const baseURL = "http://127.0.0.1:5000/servicio-1/tabla_generos";
+
+    const res = await fetch(`${baseURL}?pk_id_tipo_contenido=${id_tipo_contenido}`);
+    // arduini data=0
+    const data = await res.json();
+    // usar
+    // const { Search } = data;
+
+    if (data?.status) {
+      console.log("Ok", data?.msg);
+      return [...(data?.obj ?? [])]
+    } else {
+      console.log("Error", data?.msg);
+    }
+  };
+
+  const setGenerosBack = async (
+    valoresCambiar = {},
+    pk_id_tipo_contenido = undefined
+  ) => {
+    const baseURL = `http://127.0.0.1:5000/servicio-1/tabla_generos${pk_id_tipo_contenido != null ? `/${pk_id_tipo_contenido}` : ""
+      }`;
+
+    // js
+    // [].join("@");
+    // python
+    // "@".join([]);
+
+    const res = await fetch(baseURL, {
+      method: pk_id_tipo_contenido != null ? "PUT" : "POST",
+      body: JSON.stringify(valoresCambiar),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+    // arduini data=0
+    const data = await res.json();
+    // usar
+    // const { Search } = data;
+    if (!("status" in data)) {
+      throw new Error("Error llamando el fetch");
+    }
+
+    if (data?.status) {
+      console.log("Ok", data?.msg);
+    } else {
+      console.log("Error", data?.msg);
+    }
+  };
+
 
 
 
@@ -206,6 +257,8 @@ export const CarullaProvider = ({ children }) => {
         allGenero,
         setAllGenero,
         getAllTablaGeneros,
+        getTablaGeneros,
+        setGenerosBack,
       }}
     >
       {children}

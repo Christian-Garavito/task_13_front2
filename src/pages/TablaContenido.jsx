@@ -1,4 +1,4 @@
-import { useContext, useEffect,useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import ButtonCuerpo from "../components/ButtonCuerpo";
 import { CarullaContext } from "../context/CarullaContext";
 import TablaItems from "../components/TablaItems";
@@ -17,10 +17,10 @@ export const TablaContenido = () => {
     }
     if (buscarNombrePelicula) {
       filtros.push(["titulo_pelicula", buscarNombrePelicula]);
-     }
-     if (buscarDirectorPelicula) {
+    }
+    if (buscarDirectorPelicula) {
       filtros.push(["director_pelicula", buscarDirectorPelicula]);
-     }
+    }
 
     if (filtros.length) {
       getAllContenido(Object.fromEntries(filtros));
@@ -28,7 +28,7 @@ export const TablaContenido = () => {
       getAllContenido();
     }
     //buscarIdContenido toca agregaerlo cualdo esten los filtos
-  }, [buscarIdContenido,buscarNombrePelicula,buscarDirectorPelicula]);
+  }, [buscarIdContenido, buscarNombrePelicula, buscarDirectorPelicula]);
 
   return (
     <>
@@ -46,7 +46,7 @@ export const TablaContenido = () => {
         <div className={styles['inico_input_contenido']}>
           <div className={styles['modulo_input']}>
             <label htmlFor="">Id pelicula:</label>
-            <input 
+            <input
               type="text"
               autoComplete="off"
               value={buscarIdContenido}
@@ -58,7 +58,7 @@ export const TablaContenido = () => {
           </div>
           <div className={styles['modulo_input']}>
             <label htmlFor="">Nombre pelicula:</label>
-            <input 
+            <input
               type="text"
               autoComplete="off"
               value={buscarNombrePelicula}
@@ -70,7 +70,7 @@ export const TablaContenido = () => {
           </div>
           <div className={styles['modulo_input']}>
             <label htmlFor="">Director:</label>
-            <input 
+            <input
               type="text"
               autoComplete="off"
               value={buscarDirectorPelicula}
@@ -80,20 +80,22 @@ export const TablaContenido = () => {
               placeholder="Filtar por director pelicula"
             />
           </div>
+          <div className={styles['modulo_tabla']}> 
+            <TablaItems
+              itemsMostrar={(allContenido || []).map(
+                ({ pk_id_peliculas, titulo_pelicula, ano_pelicula, fk_id_tipo_contenido, director_pelicula, valor_pelicula }) => ({
+                  pk_id_peliculas,
+                  titulo_pelicula,
+                  ano_pelicula,
+                  fk_id_tipo_contenido,
+                  director_pelicula,
+                  valor_pelicula,
+                })
+              )}
+              headers={["ID pelicula", "Nombre pelicula", "Año de la pelicula", "id tipo contenido", "Director pelicula", "Valor Pelicula"]}
+            />
+          </div>
         </div>
-        <TablaItems
-          itemsMostrar={(allContenido || []).map(
-            ({ pk_id_peliculas, titulo_pelicula, ano_pelicula,fk_id_tipo_contenido, director_pelicula,valor_pelicula }) => ({
-              pk_id_peliculas,
-              titulo_pelicula,
-              ano_pelicula,
-              fk_id_tipo_contenido,
-              director_pelicula,
-              valor_pelicula,
-            })
-          )}
-          headers={["ID pelicula", "Nombre pelicula", "Año de la pelicula","id tipo contenido", "Director pelicula","Valor Pelicula"]}
-        />
       </div>
     </>
   );
