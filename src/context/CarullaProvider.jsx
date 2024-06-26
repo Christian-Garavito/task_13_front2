@@ -92,7 +92,7 @@ export const CarullaProvider = ({ children }) => {
 
 
 
-  // Trear el cotenido de la la tabla de tipo contenido---------------------------------------------------------------
+  // Trear el tipo de la la tabla de tipo contenido---------------------------------------------------------------
   const getAllTipo = async (filtros) => {
     const baseURL = "http://127.0.0.1:5000/servicio-1/tipo_contenido";
 
@@ -165,7 +165,7 @@ export const CarullaProvider = ({ children }) => {
     }
   };
 
-  // Trear el cotenido de la la tabla ---------------------------------------------------------------
+  // Trear el gebero de la la tabla ---------------------------------------------------------------
   const getAllTablaGeneros = async (filtros) => {
     const baseURL = "http://127.0.0.1:5000/servicio-1/tabla_generos";
 
@@ -190,7 +190,7 @@ export const CarullaProvider = ({ children }) => {
   const getTablaGeneros = async (id_tipo_contenido) => {
     const baseURL = "http://127.0.0.1:5000/servicio-1/tabla_generos";
 
-    const res = await fetch(`${baseURL}?pk_id_tipo_contenido=${id_tipo_contenido}`);
+    const res = await fetch(`${baseURL}?pk_genero=${id_tipo_contenido}`);
     // arduini data=0
     const data = await res.json();
     // usar
