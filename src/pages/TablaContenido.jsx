@@ -6,8 +6,8 @@ import TablaItems from "../components/TablaItems";
 export const TablaContenido = () => {
   const { getAllContenido, allContenido } = useContext(CarullaContext);
   const [buscarIdContenido, setBuscarIdContenido] = useState("");
-  const [buscarNombrePelicula, setTextoBusqueda1] = useState("");
-  const [buscarDirectorPelicula, setTextoBusqueda2] = useState("");
+  const [buscarNombrePelicula, setBuscarNombrePelicula] = useState("");
+  const [buscarDirectorPelicula, setBuscarDirectorPelicula] = useState("");
 
   useEffect(() => {
     const filtros = [];
@@ -62,7 +62,7 @@ export const TablaContenido = () => {
               autoComplete="off"
               value={buscarNombrePelicula}
               onChange={(ev) => {
-                setTextoBusqueda1(ev.target.value);
+                setBuscarNombrePelicula(ev.target.value);
               }}
               placeholder="Filtar por Nombre de pelicula"
             />
@@ -74,7 +74,7 @@ export const TablaContenido = () => {
               autoComplete="off"
               value={buscarDirectorPelicula}
               onChange={(ev) => {
-                setTextoBusqueda2(ev.target.value);
+                setBuscarDirectorPelicula(ev.target.value);
               }}
               placeholder="Filtar por director pelicula"
             />
@@ -82,14 +82,15 @@ export const TablaContenido = () => {
         </div>
         <TablaItems
           itemsMostrar={(allContenido || []).map(
-            ({ pk_id_peliculas, titulo_pelicula, ano_pelicula, director_pelicula }) => ({
+            ({ pk_id_peliculas, titulo_pelicula, ano_pelicula,fk_id_tipo_contenido, director_pelicula }) => ({
               pk_id_peliculas,
               titulo_pelicula,
               ano_pelicula,
+              fk_id_tipo_contenido,
               director_pelicula,
             })
           )}
-          headers={["ID pelicula", "Nombre pelicula", "Año de la pelicula", "Director pelicula"]}
+          headers={["ID pelicula", "Nombre pelicula", "Año de la pelicula","id tipo contenido", "Director pelicula"]}
         />
       </div>
     </>
