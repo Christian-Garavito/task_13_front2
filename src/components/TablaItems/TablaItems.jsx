@@ -6,7 +6,7 @@ const TablaItems = ({ itemsMostrar, headers }) => {
 
   return (
     <div>
-      <table>
+      <table border="1">
         <thead>
           <tr>
             {headers?.map((header, indHeader) => (

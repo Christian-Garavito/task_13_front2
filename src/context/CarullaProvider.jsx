@@ -72,6 +72,7 @@ export const CarullaProvider = ({ children }) => {
       // el body es lo mismo de postn y cambia el objeto de javascrip a texto
       body: JSON.stringify(valoresCambiar),
       headers: {
+        // este es el que me dice el tipo de texto que voy a enviar por el body
         "Content-Type": "application/json"
       }
     });
@@ -88,6 +89,7 @@ export const CarullaProvider = ({ children }) => {
     } else {
       console.log("Error", data?.msg);
     }
+    return data?.status
   };
 
 
@@ -236,6 +238,7 @@ export const CarullaProvider = ({ children }) => {
     } else {
       console.log("Error", data?.msg);
     }
+    return data?.status
   };
 
 
