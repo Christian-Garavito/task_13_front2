@@ -5,8 +5,8 @@ import { Link } from "react-router-dom";
 
 
 
-function NavButton({title, href}) {
-  
+function NavButton({ title, href }) {
+
   return (
     <Link className={styles['nav-link']} to={href}>
       {title}

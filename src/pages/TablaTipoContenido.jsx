@@ -5,20 +5,20 @@ import TablaItems from "../components/TablaItems";
 
 export const TablaTipoContenido = () => {
     const { getAllTipo, allTipo } = useContext(CarullaContext);
-    const [buscarIdContenido, setBuscarIdContenido] = useState("");
-    const [buscarNombrePelicula, setBuscarNombrePelicula] = useState("");
-    const [buscarDirectorPelicula, setBuscarDirectorPelicula] = useState("");
+    const [buscarIdGenero, setBuscarIdGenero] = useState("");
+    const [buscarNombreGenero, setBuscarNombreGenero] = useState("");
+    const [buscarDescripcionGenero, setBuscarDescripcionGenero] = useState("");
 
  useEffect(() => {
     const filtros = [];
-    if (buscarIdContenido) {
-        filtros.push(["pk_id_tipo_contenido", buscarIdContenido]);
+    if (buscarIdGenero) {
+        filtros.push(["pk_id_tipo_contenido", buscarIdGenero]);
     }
-    if (buscarNombrePelicula) {
-        filtros.push(["tipo_contenido", buscarNombrePelicula]);
+    if (buscarNombreGenero) {
+        filtros.push(["tipo_contenido", buscarNombreGenero]);
     }
-    if (buscarDirectorPelicula) {
-        filtros.push(["valor_generado", buscarDirectorPelicula]);
+    if (buscarDescripcionGenero) {
+        filtros.push(["decripcion_contenido", buscarDescripcionGenero]);
     }
 
     if (filtros.length) {
@@ -27,7 +27,7 @@ export const TablaTipoContenido = () => {
         getAllTipo();
     }
         //textoBusqueda toca agregaerlo cualdo esten los filtos
- }, [buscarIdContenido, buscarNombrePelicula, buscarDirectorPelicula]);
+ }, [buscarIdGenero, buscarNombreGenero, buscarDescripcionGenero]);
 
     return (
         <>
@@ -45,39 +45,39 @@ export const TablaTipoContenido = () => {
 
                 <div>
                     <div>
-                        <label htmlFor="">Id Genero</label>
+                        <label htmlFor="">Id Genero:</label>
                         <input
                             type="text"
                             autoComplete="off"
-                            value={buscarIdContenido}
+                            value={buscarIdGenero}
                             onChange={(ev) => {
-                                setBuscarIdContenido(ev.target.value);
+                                setBuscarIdGenero(ev.target.value);
                             }}
                             placeholder="Filtar por ID Genero"
                         />
                     </div>
                     <div>
-                        <label htmlFor="">Nombre Genero</label>
+                        <label htmlFor="">Nombre Genero:</label>
                         <input
                             type="text"
                             autoComplete="off"
-                            value={buscarNombrePelicula}
+                            value={buscarNombreGenero}
                             onChange={(ev) => {
-                                setBuscarNombrePelicula(ev.target.value);
+                                setBuscarNombreGenero(ev.target.value);
                             }}
                             placeholder="Filtar por Nombre de Genero"
                         />
                     </div>
                     <div>
-                        <label htmlFor="">Valor Generado</label>
+                        <label htmlFor="">Descripcion Genero:</label>
                         <input
                             type="text"
                             autoComplete="off"
-                            value={buscarDirectorPelicula}
+                            value={buscarDescripcionGenero}
                             onChange={(ev) => {
-                                setBuscarDirectorPelicula(ev.target.value);
+                                setBuscarDescripcionGenero(ev.target.value);
                             }}
-                            placeholder="Filtar por Valor Generado"
+                            placeholder="Filtar por Descripcion Genero"
                         />
                     </div>
                 </div>

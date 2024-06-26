@@ -2,6 +2,7 @@ import { useContext, useEffect,useState } from "react";
 import ButtonCuerpo from "../components/ButtonCuerpo";
 import { CarullaContext } from "../context/CarullaContext";
 import TablaItems from "../components/TablaItems";
+import styles from "../components/TabkaContenido/TabkaContenido.module.css"
 
 export const TablaContenido = () => {
   const { getAllContenido, allContenido } = useContext(CarullaContext);
@@ -42,10 +43,10 @@ export const TablaContenido = () => {
       </div>
       <div>
         {/** Agregar filtros */}
-        <div>
-          <div>
-            <label htmlFor="">Id pelicula</label>
-            <input
+        <div className={styles['inico_input_contenido']}>
+          <div className={styles['modulo_input']}>
+            <label htmlFor="">Id pelicula:</label>
+            <input 
               type="text"
               autoComplete="off"
               value={buscarIdContenido}
@@ -55,9 +56,9 @@ export const TablaContenido = () => {
               placeholder="Filtar por ID pelicula"
             />
           </div>
-          <div>
-            <label htmlFor="">Nombre pelicula</label>
-            <input
+          <div className={styles['modulo_input']}>
+            <label htmlFor="">Nombre pelicula:</label>
+            <input 
               type="text"
               autoComplete="off"
               value={buscarNombrePelicula}
@@ -67,9 +68,9 @@ export const TablaContenido = () => {
               placeholder="Filtar por Nombre de pelicula"
             />
           </div>
-          <div>
-            <label htmlFor="">Director</label>
-            <input
+          <div className={styles['modulo_input']}>
+            <label htmlFor="">Director:</label>
+            <input 
               type="text"
               autoComplete="off"
               value={buscarDirectorPelicula}
@@ -82,15 +83,16 @@ export const TablaContenido = () => {
         </div>
         <TablaItems
           itemsMostrar={(allContenido || []).map(
-            ({ pk_id_peliculas, titulo_pelicula, ano_pelicula,fk_id_tipo_contenido, director_pelicula }) => ({
+            ({ pk_id_peliculas, titulo_pelicula, ano_pelicula,fk_id_tipo_contenido, director_pelicula,valor_pelicula }) => ({
               pk_id_peliculas,
               titulo_pelicula,
               ano_pelicula,
               fk_id_tipo_contenido,
               director_pelicula,
+              valor_pelicula,
             })
           )}
-          headers={["ID pelicula", "Nombre pelicula", "Año de la pelicula","id tipo contenido", "Director pelicula"]}
+          headers={["ID pelicula", "Nombre pelicula", "Año de la pelicula","id tipo contenido", "Director pelicula","Valor Pelicula"]}
         />
       </div>
     </>

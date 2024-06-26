@@ -1,5 +1,6 @@
 import React from "react";
 
+
 const TablaItems = ({ itemsMostrar, headers }) => {
   // const headers = Object.keys(itemsMostrar?.[0] ?? {});
 

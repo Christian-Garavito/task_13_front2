@@ -1,7 +1,6 @@
 import { useContext, useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 import { CarullaContext } from '../context/CarullaContext';
-
 import ButtonCuerpo from '../components/ButtonCuerpo';
 
 export const HomePage = () => {
