@@ -32,14 +32,14 @@ export const CrearContenido = () => {
         setdatoEncontrado(infEncontrada[0].pk_id_peliculas);
         setTextoBusqueda2(infEncontrada[0].titulo_pelicula);
         setTextoBusqueda3(infEncontrada[0].ano_pelicula);
-        //setTextoBusqueda4(infEncontrada[0].fk_id_tipo_contenido);
+        setTextoBusqueda4(infEncontrada[0].fk_id_tipo_contenido);
         setTextoBusqueda5(infEncontrada[0].director_pelicula);
         setTextoBusqueda6(infEncontrada[0].valor_pelicula);
       } else {
         setdatoEncontrado(null);
         setTextoBusqueda2("")
         setTextoBusqueda3("")
-        //setTextoBusqueda4("")
+        setTextoBusqueda4("")
         setTextoBusqueda5("")
         setTextoBusqueda6("")
 
@@ -49,7 +49,7 @@ export const CrearContenido = () => {
       setdatoEncontrado(null);
       setTextoBusqueda2("")
       setTextoBusqueda3("")
-      //setTextoBusqueda4("")
+      setTextoBusqueda4("")
       setTextoBusqueda5("")
       setTextoBusqueda6("")
     });
@@ -79,7 +79,7 @@ export const CrearContenido = () => {
       getAllTablaGeneros();
     }
 
-  },[textoBusqueda1,textoBusqueda7]);
+  }, [textoBusqueda1, textoBusqueda7]);
 
   return (
     <>
@@ -143,10 +143,10 @@ export const CrearContenido = () => {
         </div>
         <div className={styles['modulo_selector']}>
           <label htmlFor="">Tipo contenido</label>
-          <select onChange={(ev) => {
+          <select value={textoBusqueda4} onChange={(ev) => {
             setTextoBusqueda4(ev.target.value);
           }}>
-            <option value={0}>Agregar Tipo Contenido</option>
+            <option value={""}>Agregar Tipo Contenido</option>
             <option value={1}>pelicula</option>
             <option value={2}>seria</option>
             <option value={3}>juego</option>
@@ -165,7 +165,7 @@ export const CrearContenido = () => {
           />
         </div>
         <div className={styles['modulo_input']}>
-          <label htmlFor="">Valor Contenido</label>
+          <label htmlFor="">Presupuesto en USD: $</label>
           <input
             type="text"
             autoComplete="off"
@@ -173,10 +173,10 @@ export const CrearContenido = () => {
             onChange={(ev) => {
               setTextoBusqueda6(ev.target.value);
             }}
-            placeholder="Valor Contenido"
+            placeholder="Presupuesto en USD: $"
           />
         </div>
-        <div>
+        <div className={styles['boton_crear']}>
           <button onClick={() => {
             setContenidoBack({
               "pk_id_peliculas": textoBusqueda1,
@@ -185,7 +185,13 @@ export const CrearContenido = () => {
               "fk_id_tipo_contenido": textoBusqueda4,
               "director_pelicula": textoBusqueda5,
               "valor_pelicula": textoBusqueda6
-            }, datoEncontrado)
+            }, datoEncontrado).then((estado) => {
+              if (estado === true) {
+                getAllContenido();
+              }
+            }).catch((error) => {
+              console.error(error);
+            })
           }}>Crear / Editar</button>
         </div>
       </div>
@@ -252,13 +258,19 @@ export const CrearContenido = () => {
             placeholder="Descripcion"
           />
         </div>
-        <div>
+        <div className={styles['boton_crear']}>
           <button onClick={() => {
             setGenerosBack({
               "pk_genero": textoBusqueda7,
               "nombre_genero": textoBusqueda8,
               "descripcion_genero": textoBusqueda9,
-            },datoEncontrado1)
+            }, datoEncontrado1).then((estado) => {
+              if (estado === true) {
+                getAllTablaGeneros()
+              }
+            }).catch((error) => {
+              console.error(error);
+            })
           }}>Crear / Editar</button>
         </div>
       </div>

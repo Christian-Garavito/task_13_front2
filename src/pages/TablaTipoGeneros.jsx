@@ -1,7 +1,8 @@
-import { useContext, useEffect,useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import ButtonCuerpo from '../components/ButtonCuerpo';
 import { CarullaContext } from "../context/CarullaContext";
 import TablaItems from "../components/TablaItems";
+import styles from "../components/TablaGenero/TablaGenero.module.css"
 
 
 
@@ -45,8 +46,8 @@ export const TablaTipoGeneros = () => {
                     <ButtonCuerpo title={"Crear Tipo Genero"} href='/crear-contenido' />
                 </div>
             </div>
-            <div>
-                <div>
+            <div className={styles['inico_input_contenido']}>
+                <div className={styles['modulo_input']}>
                     <label htmlFor="">Id Genero:</label>
                     <input
                         type="text"
@@ -58,7 +59,7 @@ export const TablaTipoGeneros = () => {
                         placeholder="Filtar por ID Genero"
                     />
                 </div>
-                <div>
+                <div className={styles['modulo_input']}>
                     <label htmlFor="">Nombre Genero:</label>
                     <input
                         type="text"
@@ -70,7 +71,7 @@ export const TablaTipoGeneros = () => {
                         placeholder="Filtar por Nombre de Genero"
                     />
                 </div>
-                <div>
+                <div className={styles['modulo_input']}>
                     <label htmlFor="">Descripcion Genero:</label>
                     <input
                         type="text"
@@ -82,18 +83,19 @@ export const TablaTipoGeneros = () => {
                         placeholder="Filtar por Descripcion Genero"
                     />
                 </div>
+            </div >
+            <div className={styles['modulo_tabla']}>
+                <TablaItems
+                    itemsMostrar={(allGenero || []).map(
+                        ({ pk_genero, nombre_genero, descripcion_genero }) => ({
+                            pk_genero,
+                            nombre_genero,
+                            descripcion_genero,
+                        })
+                    )}
+                    headers={["ID tipo", "Tipo contenido", "Decripcion"]}
+                />
             </div>
-
-            <TablaItems
-                itemsMostrar={(allGenero || []).map(
-                    ({ pk_genero, nombre_genero, descripcion_genero }) => ({
-                        pk_genero,
-                        nombre_genero,
-                        descripcion_genero,
-                    })
-                )}
-                headers={["ID tipo", "Tipo contenido", "Decripcion"]}
-            />
         </>
     );
 };

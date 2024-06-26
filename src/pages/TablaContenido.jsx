@@ -9,6 +9,8 @@ export const TablaContenido = () => {
   const [buscarIdContenido, setBuscarIdContenido] = useState("");
   const [buscarNombrePelicula, setBuscarNombrePelicula] = useState("");
   const [buscarDirectorPelicula, setBuscarDirectorPelicula] = useState("");
+  const [sigienePagina, setSigienePagina] = useState(1);
+
 
   useEffect(() => {
     const filtros = [];
@@ -22,13 +24,16 @@ export const TablaContenido = () => {
       filtros.push(["director_pelicula", buscarDirectorPelicula]);
     }
 
+    filtros.push(["pagina", sigienePagina]);
+
+
     if (filtros.length) {
       getAllContenido(Object.fromEntries(filtros));
     } else {
       getAllContenido();
     }
     //buscarIdContenido toca agregaerlo cualdo esten los filtos
-  }, [buscarIdContenido, buscarNombrePelicula, buscarDirectorPelicula]);
+  }, [buscarIdContenido, buscarNombrePelicula, buscarDirectorPelicula, sigienePagina]);
 
   return (
     <>
@@ -80,7 +85,7 @@ export const TablaContenido = () => {
               placeholder="Filtar por director pelicula"
             />
           </div>
-          <div className={styles['modulo_tabla']}> 
+          <div className={styles['modulo_tabla']}>
             <TablaItems
               itemsMostrar={(allContenido || []).map(
                 ({ pk_id_peliculas, titulo_pelicula, ano_pelicula, fk_id_tipo_contenido, director_pelicula, valor_pelicula }) => ({
@@ -92,10 +97,19 @@ export const TablaContenido = () => {
                   valor_pelicula,
                 })
               )}
-              headers={["ID pelicula", "Nombre pelicula", "Año de la pelicula", "id tipo contenido", "Director pelicula", "Valor Pelicula"]}
+              headers={["ID pelicula", "Nombre pelicula", "Año de la pelicula", "id tipo contenido", "Director pelicula", "Presupuesto en USD"]}
             />
           </div>
+
         </div>
+      </div>
+      <div className="botones_contenido">
+        <button onClick={() =>
+          setSigienePagina((oldPage) => (oldPage > 1 ? oldPage - 1 : oldPage ))
+        }>Atras</button>
+        <button onClick={() =>
+          setSigienePagina((oldPage) => ( sigienePagina ? oldPage + 1 : oldPage))
+        }>Sigiente</button>
       </div>
     </>
   );

@@ -3,6 +3,7 @@ import ButtonCuerpo from '../components/ButtonCuerpo';
 import { CarullaContext } from "../context/CarullaContext";
 import TablaItems from "../components/TablaItems";
 
+
 export const TablaTipoContenido = () => {
     const { getAllTipo, allTipo } = useContext(CarullaContext);
     const [buscarIdGenero, setBuscarIdGenero] = useState("");
