@@ -79,7 +79,7 @@ export const CrearContenido = () => {
       getAllTablaGeneros();
     }
 
-  }, [textoBusqueda1,textoBusqueda7]);
+  },[textoBusqueda1,textoBusqueda7]);
 
   return (
     <>
@@ -221,7 +221,7 @@ export const CrearContenido = () => {
           <input
             type="text"
             autoComplete="off"
-            value={textoBusqueda1}
+            value={textoBusqueda7}
             onChange={(ev) => {
               setTextoBusqueda7(ev.target.value);
             }}
@@ -233,7 +233,7 @@ export const CrearContenido = () => {
           <input
             type="text"
             autoComplete="off"
-            value={textoBusqueda2}
+            value={textoBusqueda8}
             onChange={(ev) => {
               setTextoBusqueda8(ev.target.value);
             }}
@@ -245,7 +245,7 @@ export const CrearContenido = () => {
           <input
             type="text"
             autoComplete="off"
-            value={textoBusqueda3}
+            value={textoBusqueda9}
             onChange={(ev) => {
               setTextoBusqueda9(ev.target.value);
             }}
@@ -258,7 +258,7 @@ export const CrearContenido = () => {
               "pk_genero": textoBusqueda7,
               "nombre_genero": textoBusqueda8,
               "descripcion_genero": textoBusqueda9,
-            }, datoEncontrado1)
+            },datoEncontrado1)
           }}>Crear / Editar</button>
         </div>
       </div>
