@@ -1,4 +1,4 @@
-import { useContext, useEffect,useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import ButtonCuerpo from "../components/ButtonCuerpo";
 import { CarullaContext } from "../context/CarullaContext";
 
@@ -14,20 +14,29 @@ export const CrearContenido = () => {
   const [datoEncontrado, setdatoEncontrado] = useState(null);
 
   useEffect(() => {
-    
-     getContenido(textoBusqueda1).then((infEncontrada)=>{
-      if (infEncontrada && infEncontrada.length){
+
+    getContenido(textoBusqueda1).then((infEncontrada) => {
+      if (infEncontrada && infEncontrada.length) {
         setdatoEncontrado(infEncontrada[0].pk_id_peliculas);
-      }else{
+        setTextoBusqueda2(infEncontrada[0].titulo_pelicula);
+        setTextoBusqueda3(infEncontrada[0].ano_pelicula);
+        setTextoBusqueda5(infEncontrada[0].director_pelicula);
+      } else {
         setdatoEncontrado(null);
+        setTextoBusqueda2("")
+        setTextoBusqueda3("")
+        setTextoBusqueda5("")
       }
-     }).catch((error)=>{
+    }).catch((error) => {
       console.error(error);
       setdatoEncontrado(null);
+      setTextoBusqueda2("")
+      setTextoBusqueda3("")
+      setTextoBusqueda5("")
     });
 
-  },[textoBusqueda1]);
-  
+  }, [textoBusqueda1]);
+
   return (
     <>
       <div>
@@ -54,64 +63,62 @@ export const CrearContenido = () => {
       <div>
         <label htmlFor="">Id pelicula</label>
         <input
-              type="text"
-              autoComplete="off"
-              value={textoBusqueda1}
-              onChange={(ev) => {
-                setTextoBusqueda1(ev.target.value);
-              }}
-              placeholder="Filtar por Nombre de pelicula"
-            />
+          type="text"
+          autoComplete="off"
+          value={textoBusqueda1}
+          onChange={(ev) => {
+            setTextoBusqueda1(ev.target.value);
+          }}
+          placeholder="Filtar por Nombre de pelicula"
+        />
         <label htmlFor="">titulo_pelicula</label>
         <input
-              type="text"
-              autoComplete="off"
-              value={textoBusqueda2}
-              onChange={(ev) => {
-                setTextoBusqueda2(ev.target.value);
-              }}
-              placeholder="Filtar por Nombre de pelicula"
-            />
+          type="text"
+          autoComplete="off"
+          value={textoBusqueda2}
+          onChange={(ev) => {
+            setTextoBusqueda2(ev.target.value);
+          }}
+          placeholder="Filtar por Nombre de pelicula"
+        />
         <label htmlFor="">ano_pelicula</label>
         <input
-              type="text"
-              autoComplete="off"
-              value={textoBusqueda3}
-              onChange={(ev) => {
-                setTextoBusqueda3(ev.target.value);
-              }}
-              placeholder="Filtar por Nombre de pelicula"
-            />
+          type="text"
+          autoComplete="off"
+          value={textoBusqueda3}
+          onChange={(ev) => {
+            setTextoBusqueda3(ev.target.value);
+          }}
+          placeholder="Filtar por Nombre de pelicula"
+        />
         <label htmlFor="">fk_id_tipo_contenido</label>
-        <input
-              type="text"
-              autoComplete="off"
-              value={textoBusqueda4}
-              onChange={(ev) => {
-                setTextoBusqueda4(ev.target.value);
-              }}
-              placeholder="Filtar por Nombre de pelicula"
-            />
+        <select  onChange={(ev) => {
+            setTextoBusqueda4(ev.target.value);
+          }}>
+            <option value={1}>pelicula</option>
+            <option value={2}>seria</option>
+            <option value={3}>juego</option>
+        </select>
         <label htmlFor="">director_pelicula</label>
         <input
-              type="text"
-              autoComplete="off"
-              value={textoBusqueda5}
-              onChange={(ev) => {
-                setTextoBusqueda5(ev.target.value);
-              }}
-              placeholder="Filtar por Nombre de pelicula"
-            />
+          type="text"
+          autoComplete="off"
+          value={textoBusqueda5}
+          onChange={(ev) => {
+            setTextoBusqueda5(ev.target.value);
+          }}
+          placeholder="Filtar por Nombre de pelicula"
+        />
         <label htmlFor="">valor_pelicula</label>
         <input
-              type="text"
-              autoComplete="off"
-              value={textoBusqueda6}
-              onChange={(ev) => {
-                setTextoBusqueda6(ev.target.value);
-              }}
-              placeholder="Filtar por Nombre de pelicula"
-            />
+          type="text"
+          autoComplete="off"
+          value={textoBusqueda6}
+          onChange={(ev) => {
+            setTextoBusqueda6(ev.target.value);
+          }}
+          placeholder="Filtar por Nombre de pelicula"
+        />
         <button onClick={() => {
           setContenidoBack({
             "pk_id_peliculas": textoBusqueda1,
@@ -120,7 +127,7 @@ export const CrearContenido = () => {
             "fk_id_tipo_contenido": textoBusqueda4,
             "director_pelicula": textoBusqueda5,
             "valor_pelicula": textoBusqueda6
-          },datoEncontrado)
+          }, datoEncontrado)
         }}>Crear aleatorio</button>
       </div>
     </>
