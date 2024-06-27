@@ -62,7 +62,7 @@
     }
     
 }
-/* button::before{
+.boton_crear button::before{
     content: "";
     position: absolute;
     left: 0px;
@@ -78,4 +78,4 @@
     border-radius: 10px;
     filter: blur(2px);
     animation: glowing 20s linear infinite;
-} */
+} 

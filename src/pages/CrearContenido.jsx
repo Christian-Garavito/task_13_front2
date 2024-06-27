@@ -21,6 +21,8 @@ export const CrearContenido = () => {
   const [textoBusqueda9, setTextoBusqueda9] = useState("");
   const [datoEncontrado, setdatoEncontrado] = useState(null);
   const [datoEncontrado1, setdatoEncontrado1] = useState(null);
+  const [agragadoContenido, setAgragadoContenido] = useState(false);
+  const [guardarGenero, setGuardarGenero] = useState({});
 
 
   useEffect(() => {
@@ -199,30 +201,27 @@ export const CrearContenido = () => {
       <div className={styles['modulo_tablas']}>
         <div>
           <TablaItems
-            itemsMostrar={(allContenido || []).map(
-              ({ pk_id_peliculas, titulo_pelicula, }) => ({
-                pk_id_peliculas,
-                titulo_pelicula,
-              })
-            )}
-            headers={["ID pelicula", "Nombre pelicula"]}
-          />
-        </div>
-        <div>
-          <TablaItems
             itemsMostrar={(allGenero || []).map(
               ({ pk_genero, nombre_genero, descripcion_genero }) => ({
+                check:<input type="checkbox" name={pk_genero} checked={agragadoContenido} 
+                onChange={(ev) => {
+                  //setAgragadoContenido((anterior)=>!anterior);
+                  //console.log(ev.target.name)
+                  //setGuardarGenero({[ev.target.name] : (anterior)=> (anterior === false ? false : true)})
+                  setGuardarGenero((generoAnterior)=>{generoAnterior,[ev.target.name] })
+                   
+                }}/>,
                 pk_genero,
                 nombre_genero,
                 descripcion_genero,
               })
             )}
-            headers={["ID tipo", "Tipo contenido", "Decripcion"]}
+            headers={["","ID tipo", "Nombre Genero", "Descripcion"]}
           />
         </div>
       </div>
       <div className={styles['inico_input_contenido']}>
-        <div className={styles['modulo_input']}>
+        {/* <div className={styles['modulo_input']}>
           <label htmlFor="">Id Genero:</label>
           <input
             type="text"
@@ -272,8 +271,15 @@ export const CrearContenido = () => {
               console.error(error);
             })
           }}>Crear / Editar</button>
+          </div> */}
+          <div className={styles['boton_crear']}>
+          <button onClick={() => {
+            
+            console.log(guardarGenero)
+            
+          }}>Agregar Genero</button>
+          </div>
         </div>
-      </div>
 
     </>
   );
