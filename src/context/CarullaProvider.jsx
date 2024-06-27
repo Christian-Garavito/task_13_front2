@@ -28,7 +28,8 @@ export const CarullaProvider = ({ children }) => {
 
     if (data?.status) {
       console.log("Ok", data?.msg);
-      setAllContenido([...(data?.obj ?? [])]);
+      setAllContenido([...(data?.obj?.results ?? [])]);
+      return data?.obj?.hay_sigiente
     } else {
       console.log("Error", data?.msg);
     }
@@ -47,7 +48,7 @@ export const CarullaProvider = ({ children }) => {
     if (data?.status) {
       console.log("Ok", data?.msg);
       // guardar la data para utilizarla despues
-      return [...(data?.obj ?? [])]
+      return [...(data?.obj?.results ?? [])]
     } else {
       console.log("Error", data?.msg);
     }

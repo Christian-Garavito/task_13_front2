@@ -10,6 +10,9 @@ export const TablaContenido = () => {
   const [buscarNombrePelicula, setBuscarNombrePelicula] = useState("");
   const [buscarDirectorPelicula, setBuscarDirectorPelicula] = useState("");
   const [sigienePagina, setSigienePagina] = useState(1);
+  const [numeroItensMostrar, setNumeroItensMostrar] = useState(5);
+  const [existeSiguiente, setExisteSiguiente] = useState(false);
+
 
 
   useEffect(() => {
@@ -25,15 +28,24 @@ export const TablaContenido = () => {
     }
 
     filtros.push(["pagina", sigienePagina]);
+    filtros.push(["limit", numeroItensMostrar]);
 
 
     if (filtros.length) {
-      getAllContenido(Object.fromEntries(filtros));
+
+      getAllContenido(Object.fromEntries(filtros)).then((existeSiguiente) =>{
+        // !! doble negado convertirlo del tipo de variable que sea a booleano
+        setExisteSiguiente(!!existeSiguiente);
+      }).catch((error)=>{
+        console.error(error);
+        setExisteSiguiente(false)
+      });
+      
     } else {
       getAllContenido();
     }
     //buscarIdContenido toca agregaerlo cualdo esten los filtos
-  }, [buscarIdContenido, buscarNombrePelicula, buscarDirectorPelicula, sigienePagina]);
+  }, [buscarIdContenido, buscarNombrePelicula, buscarDirectorPelicula, sigienePagina,numeroItensMostrar]);
 
   return (
     <>
@@ -88,16 +100,16 @@ export const TablaContenido = () => {
           <div className={styles['modulo_tabla']}>
             <TablaItems
               itemsMostrar={(allContenido || []).map(
-                ({ pk_id_peliculas, titulo_pelicula, ano_pelicula, fk_id_tipo_contenido, director_pelicula, valor_pelicula }) => ({
+                ({ pk_id_peliculas, titulo_pelicula, ano_pelicula, tipo_contenido, director_pelicula, valor_pelicula }) => ({
                   pk_id_peliculas,
                   titulo_pelicula,
                   ano_pelicula,
-                  fk_id_tipo_contenido,
+                  tipo_contenido,
                   director_pelicula,
                   valor_pelicula,
                 })
               )}
-              headers={["ID pelicula", "Nombre pelicula", "Año de la pelicula", "id tipo contenido", "Director pelicula", "Presupuesto en USD"]}
+              headers={["ID pelicula", "Nombre pelicula", "Año de la pelicula", "tipo contenido", "Director pelicula", "Presupuesto en USD"]}
             />
           </div>
 
@@ -105,11 +117,23 @@ export const TablaContenido = () => {
       </div>
       <div className="botones_contenido">
         <button onClick={() =>
-          setSigienePagina((oldPage) => (oldPage > 1 ? oldPage - 1 : oldPage ))
+          setSigienePagina((oldPage) => (oldPage > 1 ? oldPage - 1 : oldPage))
         }>Atras</button>
-        <button onClick={() =>
-          setSigienePagina((oldPage) => ( sigienePagina ? oldPage + 1 : oldPage))
-        }>Sigiente</button>
+        <div>
+          <label htmlFor="">Cantidad a traer</label>
+          <select value={numeroItensMostrar} onChange={(ev) => {
+            setNumeroItensMostrar(ev.target.value);
+            setSigienePagina(1);
+          }}>
+            <option value={""}></option>
+            <option value={5}>5 Items por paginas</option>
+            <option value={10}>10 Items por paginas</option>
+            <option value={20}>20 Items por paginas</option>
+          </select>
+        </div>
+        <button onClick={() => {
+          setSigienePagina((oldPage) => (existeSiguiente ? oldPage + 1 : oldPage))
+        }}>Sigiente</button>
       </div>
     </>
   );
